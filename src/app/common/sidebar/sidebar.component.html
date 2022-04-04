@@ -1,1 +1,13 @@
-<p>sidebar works!</p>
+<div class="sidebar-wrapper">
+  <div class="logo_container">
+    <a routerLink="/">gBanque</a>
+  </div>
+  <ul class="nav">
+    <li *ngFor="let menuItem of menu" routerLinkActive="active" class="{{ menuItem.class }}">
+      <a [routerLink]="[menuItem.path]">
+        <i class="fa {{ menuItem.icon }}"></i>
+        <p>{{ menuItem.title }}</p>
+      </a>
+    </li>
+  </ul>
+</div>

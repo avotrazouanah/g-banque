@@ -1,0 +1,66 @@
+@mixin sidebar-text-color($text-color){
+    .nav {
+      li {
+        a,
+        a i,
+        a[data-toggle="collapse"],
+        a[data-toggle="collapse"] i,
+        a[data-toggle="collapse"] ~ div > ul > li .sidebar-mini-icon,
+        a[data-toggle="collapse"] ~ div > ul > li > a {
+          color: $text-color;
+          opacity: .7;
+        }
+  
+        &:hover:not(.active) > a,
+        &:focus:not(.active) > a {
+            opacity: 1;
+        }
+      }
+    }
+  
+    .logo {
+      .simple-text {
+        color: $text-color;
+      }
+      &:after {
+        background-color: $text-color;
+        opacity: .4;
+      }
+    }
+  
+    .user {
+      .info a span,
+      .nav .sidebar-mini-icon,
+      .nav .sidebar-normal {
+        color: $text-color !important;
+      }
+      &:after {
+        background-color: $text-color;
+        opacity: .4;
+      }
+    }
+  }
+  
+  @mixin sidebar-active-color($font-color){
+    .nav {
+        li {
+          &.active > a,
+          &.active > a i,
+          &.active > a[data-toggle="collapse"],
+          &.active > a[data-toggle="collapse"] i,
+          &.active > a[data-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon,
+          &.active > a[data-toggle="collapse"] ~ div > ul > li.active > a {
+            color: $font-color;
+            opacity: 1;
+          }
+        }
+    }
+}
+
+@mixin transition-admin ($time, $type){
+  -webkit-transition: all $time $type;
+  -moz-transition: all $time $type;
+  -o-transition: all $time $type;
+  -ms-transition: all $time $type;
+  transition: all $time $type;
+}

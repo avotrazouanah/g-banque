@@ -1,13 +1,13 @@
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NotificationMessageModule } from './common/notification-message/notification-message.module';
-import { SidebarComponent } from './common/sidebar/sidebar.component';
 
 @NgModule({
-  declarations: [AppComponent, SidebarComponent],
-  imports: [BrowserModule, AppRoutingModule, NotificationMessageModule],
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule, NotificationMessageModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent]
 })
