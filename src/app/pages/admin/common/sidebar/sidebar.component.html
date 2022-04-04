@@ -1,0 +1,13 @@
+<div class="sidebar-wrapper">
+  <div class="logo_container">
+    <a routerLink="/">gBanque</a>
+  </div>
+  <ul class="nav">
+    <li *ngFor="let menuItem of _menu" routerLinkActive="active" class="{{ menuItem._class }}">
+      <a [routerLink]="[menuItem._path]">
+        <i class="fa {{ menuItem._icon }}"></i>
+        <p>{{ menuItem._title }}</p>
+      </a>
+    </li>
+  </ul>
+</div>

@@ -1,6 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 
 import { AdminComponent } from './admin.component';
+import { ClientComponent } from './pages/client/client.component';
 import { NgModule } from '@angular/core';
 
 const routes: Routes = [
@@ -8,13 +9,13 @@ const routes: Routes = [
     path: '',
     component: AdminComponent,
     children: [
-      // { path: 'user', component: UserComponent },
+      { path: 'client', component: ClientComponent },
       // { path: 'product', component: ProductComponent },
       // { path: 'category', component: CategoryComponent },
       // { path: 'sale', component: SaleComponent },
       // { path: 'stock-sheet', component: StockSheetComponent },
       // { path: 'paid-cart', component: PaidCartComponent },
-      // { path: '', redirectTo: 'user', pathMatch: 'full' }
+      { path: '', redirectTo: 'client', pathMatch: 'full' }
     ]
   }
 ];

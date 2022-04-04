@@ -1,6 +1,6 @@
 export interface Notification {
-  id?: number | string;
-  title?: string;
-  content: string;
-  style?: string;
+  _id?: number | string;
+  _title?: string;
+  _content: string;
+  _style?: string;
 }

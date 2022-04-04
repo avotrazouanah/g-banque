@@ -1,6 +1,6 @@
 export interface RouteInfo {
-  path: string;
-  title: string;
-  icon: string;
-  class: string;
+  _path: string;
+  _title: string;
+  _icon: string;
+  _class: string;
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatDrawer } from '@angular/material/sidenav';
-import { Menu } from 'src/app/common/sidebar/menu';
+import { Menu } from 'src/app/pages/admin/common/sidebar/menu';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,9 +11,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
-  @ViewChild('drawer') public drawer!: MatDrawer;
-  title = 'Web Administration';
-  isMobile: boolean = false;
+  @ViewChild('drawer') public _drawer!: MatDrawer;
+  _title = 'Web Administration';
+  _isMobile: boolean = false;
 
   // eslint-disable-next-line no-unused-vars
   constructor(private breakpoint: BreakpointObserver, private router: Router) {}
@@ -25,21 +25,21 @@ export class AdminComponent implements OnInit {
   ngAfterViewInit() {
     this.breakpoint.observe(['(max-width: 991px)']).subscribe((res) => {
       if (res.matches) {
-        this.drawer.mode = 'over';
-        this.drawer?.close();
-        this.isMobile = true;
+        this._drawer.mode = 'over';
+        this._drawer?.close();
+        this._isMobile = true;
       } else {
-        this.drawer.mode = 'side';
-        this.drawer?.open();
-        this.isMobile = false;
+        this._drawer.mode = 'side';
+        this._drawer?.open();
+        this._isMobile = false;
       }
     });
   }
 
   onChangeTitle() {
-    this.title = this.router.url.split('/')[2];
-    if (this.title) {
-      for (let c of Menu) if (c.path === this.title) this.title = c.title;
-    } else this.title = 'Web Administration';
+    this._title = this.router.url.split('/')[2];
+    if (this._title) {
+      for (let c of Menu) if (c._path === this._title) this._title = c._title;
+    } else this._title = 'Web Administration';
   }
 }

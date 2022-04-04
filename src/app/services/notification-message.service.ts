@@ -19,17 +19,17 @@ export class NotificationMessageService {
 
   remove(id: number | string | undefined) {
     if (id) {
-      this.notifications = this.notifications.filter((x) => x.id !== id);
+      this.notifications = this.notifications.filter((x) => x._id !== id);
       this.onChange$.next(this.notifications);
     }
   }
 
   alert(notification: Notification) {
-    if (!notification.id) notification.id = generateId();
+    if (!notification._id) notification._id = generateId();
     this.add(notification);
     // eslint-disable-next-line no-undef
     setTimeout(() => {
-      this.remove(notification.id);
+      this.remove(notification._id);
     }, 3000);
   }
 }

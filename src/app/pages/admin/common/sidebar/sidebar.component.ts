@@ -9,9 +9,9 @@ import { RouteInfo } from 'src/app/models/router-info';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-  public menu: RouteInfo[] = [];
+  public _menu: RouteInfo[] = [];
   constructor() {}
   ngOnInit(): void {
-    this.menu = Menu.slice();
+    this._menu = Menu.slice();
   }
 }

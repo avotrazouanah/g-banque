@@ -27,15 +27,15 @@ import { NotificationMessageService } from 'src/app/services/notification-messag
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotificationMessageComponent implements OnInit {
-  notifications!: Notification[];
+  _notifications!: Notification[];
 
   // eslint-disable-next-line no-unused-vars
   constructor(public service: NotificationMessageService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.notifications = this.service.notifications;
+    this._notifications = this.service.notifications;
     this.service.onChange$.subscribe(() => {
-      this.notifications = this.service.notifications;
+      this._notifications = this.service.notifications;
       this.cdr.detectChanges();
     });
   }
