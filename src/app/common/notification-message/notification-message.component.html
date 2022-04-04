@@ -1,0 +1,23 @@
+<div class="notification-container">
+    <div
+        class="notification"
+        *ngFor="let notification of notifications"
+        [@fadeInOut]
+    >
+        <div class="header">
+            <div class="spacer"></div>
+            <button
+                class="close-button"
+                (click)="service.remove(notification.id)"
+            >
+                x
+            </button>
+        </div>
+        <h3 class="title">
+            {{notification.title || 'Notification'}}
+        </h3>
+        <div class="content">
+            <p [style]="notification?.style">{{notification.content}}</p>
+        </div>
+    </div>
+</div>

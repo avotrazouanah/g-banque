@@ -1,0 +1,76 @@
+@import "../../styles/mixins";
+
+$primary: #4FA2D1;
+$primary-50: #4FA2D180;
+$secondary: #a8fffb;
+$cancel: #A0AEC020;
+$disable: #A0AEC0;
+$disable-80: #A0AEC080;
+$disable-50: #A0AEC050;
+$text: #2D3748;
+$text-disable: #2D374875;
+$text-danger: #df8d82;
+$header-background: #F5EBEB;
+$sidebar-background: #e7e7e7;
+$danger: #ffcbca;
+
+app-notification-message {
+  position: fixed;
+  z-index: 9999;
+  bottom: 20px;
+  right: 20px;
+
+  .notification-container {
+    display: flex;
+    flex-direction: column;
+
+    .notification {
+      width: 280px;
+      padding: 0;
+      margin-bottom: 16px;
+      background-color: $sidebar-background;
+      border-radius: 4px;
+      border: 2px solid $disable;
+      box-shadow: 0px 1px 4px $disable-80;
+
+      .header {
+        display: flex;
+      }
+
+      .title {
+        padding: 0px 16px;
+        color: $primary
+      }
+
+      .content {
+        padding: 0px 24px;
+
+        p {
+          padding: 0;
+          padding-bottom: 4px;
+          color: $text;
+          font-weight: 400;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  h3 {
+    padding: 2px 2px;
+    margin: 0;
+    font-weight: 500;
+    font-size: 16px;
+    color: $text;
+  }
+
+  .close-button {
+    width: 40px;
+    padding: 1px;
+    margin-left: auto;
+    border: 1px solid #cccccc80;
+    background-color: $sidebar-background;
+    cursor: pointer;
+    font-size: 12px;
+  }
+}
