@@ -13,42 +13,42 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./client.component.scss']
 })
 export class ClientComponent implements OnInit, OnDestroy {
-  _cltSubscription!: Subscription;
+  _clientSubscription!: Subscription;
   _row: Client[] = [];
   _rowFiltered!: Client[];
   _isSelect: boolean = false;
-  _cltSelect: Client[] = [];
+  _clientSelect: Client[] = [];
   _msg = { emptyMessage: 'Aucun elément!' };
   _columnMode = ColumnMode;
   _selectionType = SelectionType;
   _search: string = '';
-  _cltDialog!: MatDialog;
-  _cltService: ClientService;
+  _clientDialog!: MatDialog;
+  _clientService: ClientService;
 
   constructor(private clientDialog: MatDialog, private clientService: ClientService) {
-    this._cltDialog = clientDialog;
-    this._cltService = clientService;
-    this._cltService.setCurrentSelect(false, []);
+    this._clientDialog = clientDialog;
+    this._clientService = clientService;
+    this._clientService.setCurrentSelect(false, []);
   }
 
   ngOnInit(): void {
-    this._cltService.getListUser();
-    this._cltSubscription = this._cltService._cltSubject.subscribe({
+    this._clientService.getListUser();
+    this._clientSubscription = this._clientService._clientSubject.subscribe({
       next: (clients: Client[]) => {
         this.initTable(clients);
       }
     });
-    this._cltSubscription = this._cltService._currentSelectSubject.subscribe({
+    this._clientSubscription = this._clientService._currentSelectSubject.subscribe({
       next: (clientSelected) => {
         this._isSelect = clientSelected.status;
-        this._cltSelect = clientSelected.clients;
+        this._clientSelect = clientSelected.clients;
       }
     });
-    this._cltService.emitCurrentSelectSubject();
+    this._clientService.emitCurrentSelectSubject();
   }
 
   ngOnDestroy(): void {
-    if (this._cltSubscription) this._cltSubscription.unsubscribe();
+    if (this._clientSubscription) this._clientSubscription.unsubscribe();
   }
 
   initTable(clients: Client[]) {
@@ -57,13 +57,12 @@ export class ClientComponent implements OnInit, OnDestroy {
   }
 
   onCUD(action: string) {
-    let width = '800px';
+    let width = '350px';
     if (action === 'add') this.onUnSelectRow();
-    if (action === 'delete') width = '350px';
-    let _clt: Client = this._cltSelect.length != 0 ? this._cltSelect[0] : new Client();
+    let _client: Client = this._clientSelect.length != 0 ? this._clientSelect[0] : new Client();
     this.clientDialog.open(ClientFormComponent, {
       width: width,
-      data: { action: action, _clt: { ..._clt } }
+      data: { _action: action, _client: { ..._client } }
     });
   }
 
@@ -86,10 +85,11 @@ export class ClientComponent implements OnInit, OnDestroy {
   }
 
   onSelectRow() {
-    if (this._cltSelect.length > 0) this._cltService.setCurrentSelect(true, this._cltSelect);
+    if (this._clientSelect.length > 0)
+      this._clientService.setCurrentSelect(true, this._clientSelect);
   }
 
   onUnSelectRow() {
-    this._cltService.setCurrentSelect(false, []);
+    this._clientService.setCurrentSelect(false, []);
   }
 }

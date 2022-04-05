@@ -11,8 +11,8 @@ import { environment } from 'src/environments/environment';
 })
 export class ClientService implements OnDestroy {
   private _clients: Client[] = [];
-  _cltSubject = new Subject<Client[]>();
-  _cltSubscription!: Subscription;
+  _clientSubject = new Subject<Client[]>();
+  _clientSubscription!: Subscription;
   _currentSelect: ClientSelected = new ClientSelected();
   _currentSelectSubject = new Subject<ClientSelected>();
   _httpClient: HttpClient;
@@ -27,25 +27,27 @@ export class ClientService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this._cltSubscription) this._cltSubscription.unsubscribe();
+    if (this._clientSubscription) this._clientSubscription.unsubscribe();
   }
 
   emitUserSubject() {
-    this._cltSubject.next(this._clients.slice());
+    this._clientSubject.next(this._clients.slice());
   }
 
   getListUser() {
-    this._cltSubscription = this.httpClient.get<Client[]>(environment.api + '/client').subscribe({
-      next: (users) => {
-        this._clients = [];
-        users.forEach((client) => {
-          this._clients.push(new Client(client.numCompte, client.nomClient, client.solde));
-        });
-        this.emitUserSubject();
-      },
-      error: () =>
-        this._notificationService.alert({ _content: 'Connexion Error', _style: 'color: red' })
-    });
+    this._clientSubscription = this.httpClient
+      .get<Client[]>(environment.api + '/client')
+      .subscribe({
+        next: (users) => {
+          this._clients = [];
+          users.forEach((client) => {
+            this._clients.push(new Client(client.numCompte, client.nomClient, client.solde));
+          });
+          this.emitUserSubject();
+        },
+        error: () =>
+          this._notificationService.alert({ _content: 'Connexion Error', _style: 'color: red' })
+      });
   }
 
   getListUserObs(): Observable<Client[]> {
