@@ -1,108 +1,120 @@
 @import './styles/mixin_admin';
 
 mat-drawer-container {
-    width: 100vw;
-    height: 100vh;
+  width: 100vw;
+  height: 100vh;
 }
 
 .main-panel {
-    position: relative;
-    float: right;
-    width: 100%;
+  position: relative;
+  float: right;
+  width: 100%;
+  background-color: #f4f3ef;
+  height: 100vh;
+
+  @include transition-admin(0.5s, cubic-bezier(0.685, 0.0473, 0.346, 1));
+
+  .content {
+    padding: 0 30px 30px;
+    min-height: calc(100vh - 123px);
+    // margin-top: 50px;
+    margin-top: 70px;
+  }
+
+  .navbar {
+    margin-bottom: 0;
+    position: fixed;
     background-color: #f4f3ef;
-    height: 100vh;
+    z-index: 9;
+  }
 
-    @include transition-admin(0.5s, cubic-bezier(0.685, 0.0473, 0.346, 1));
-
-    .content {
-        padding: 0 30px 30px;
-        min-height: calc(100vh - 123px);
-        // margin-top: 50px;
-        margin-top: 70px;
-    }
-
-    .navbar {
-        margin-bottom: 0;
-        position: fixed;
-        background-color: #f4f3ef;
-        z-index: 9;
-
-    }
-
-    .header {
-        margin-bottom: 50px;
-    }
+  .header {
+    margin-bottom: 50px;
+  }
 }
 
 .sidebar {
-    height: 100%;
-    z-index: 1030;
-    border: none;
+  height: 100%;
+  z-index: 1030;
+  border: none;
 }
 
 .navbar {
-    padding-top: 0.625rem;
-    padding-bottom: 0.625rem;
-    min-height: 53px;
-    margin-bottom: 20px;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  min-height: 53px;
+  margin-bottom: 20px;
 
-    box-shadow: none;
-    border-bottom: 1px solid #ddd;
+  box-shadow: none;
+  border-bottom: 1px solid #ddd;
 
+  a {
+    vertical-align: middle;
+    color: #66615b;
+  }
 
-    a {
-        vertical-align: middle;
-        color: #66615b;
+  &.navbar-absolute {
+    position: absolute;
+    width: 100%;
+    padding-top: 10px;
+    z-index: 1029;
+  }
+
+  .navbar-wrapper {
+    display: inline-flex;
+    align-items: center;
+
+    .navbar-minimize {
+      padding-right: 10px;
+
+      .btn {
+        margin: 0;
+      }
     }
 
-    &.navbar-absolute {
-        position: absolute;
-        width: 100%;
-        padding-top: 10px;
-        z-index: 1029;
-    }
+    .navbar-toggle {
+      .navbar-toggler {
+        padding-left: 0;
+      }
 
-    .navbar-wrapper {
-        display: inline-flex;
-        align-items: center;
-
-        .navbar-minimize {
-            padding-right: 10px;
-
-            .btn {
-                margin: 0;
-            }
+      &:hover {
+        & .navbar-toggler-bar.bar2 {
+          width: 22px;
         }
-
-        .navbar-toggle {
-            .navbar-toggler {
-                padding-left: 0;
-            }
-
-            &:hover {
-                & .navbar-toggler-bar.bar2 {
-                    width: 22px;
-                }
-            }
-        }
+      }
+    }
+    .mobile {
+      left: calc(100% - 150px);
+    }
+    .pc {
+      left: calc(100% - 375px);
     }
 
-    .logo-container {
-        width: 27px;
-        height: 27px;
-        overflow: hidden;
-        margin: 0 auto;
-        border-radius: 50%;
-        border: 1px solid transparent;
+    .logout {
+      color: #66615b;
+      &:hover {
+        cursor: pointer;
+        color: #6661bb;
+      }
     }
+  }
 
-    .navbar-brand {
-        text-transform: capitalize;
-        font-size: 20px;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-        line-height: 1.625rem;
-        cursor: initial;
-        outline: none;
-    }
+  .logo-container {
+    width: 27px;
+    height: 27px;
+    overflow: hidden;
+    margin: 0 auto;
+    border-radius: 50%;
+    border: 1px solid transparent;
+  }
+
+  .navbar-brand {
+    text-transform: capitalize;
+    font-size: 20px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    line-height: 1.625rem;
+    cursor: default;
+    outline: none;
+  }
 }

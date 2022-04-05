@@ -1,90 +1,95 @@
 import { ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { Component } from '@angular/core';
+import { Client } from 'src/app/models/client';
+import { ClientFormComponent } from './client-form/client-form.component';
+import { ClientService } from 'src/app/services/client.service';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
-import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
   styleUrls: ['./client.component.scss']
 })
-export class ClientComponent {
-  userSubscription!: Subscription;
-  dataSource!: MatTableDataSource<any>;
-  isSelected: boolean = false;
-  selectedUser: User[] = [];
-  messages = { emptyMessage: 'Aucun elément!' };
-  ColumnMode = ColumnMode;
-  SelectionType = SelectionType;
-  searchKey: string = '';
+export class ClientComponent implements OnInit, OnDestroy {
+  _cltSubscription!: Subscription;
+  _row: Client[] = [];
+  _rowFiltered!: Client[];
+  _isSelect: boolean = false;
+  _cltSelect: Client[] = [];
+  _msg = { emptyMessage: 'Aucun elément!' };
+  _columnMode = ColumnMode;
+  _selectionType = SelectionType;
+  _search: string = '';
+  _cltDialog!: MatDialog;
+  _cltService: ClientService;
 
-  // constructor(private userService: UserService, private userDialog: MatDialog) {
-  // eslint-disable-next-line no-unused-vars
-  constructor(private userDialog: MatDialog) {
-    // this.userService.setCurrentSelect(false, []);
+  constructor(private clientDialog: MatDialog, private clientService: ClientService) {
+    this._cltDialog = clientDialog;
+    this._cltService = clientService;
+    this._cltService.setCurrentSelect(false, []);
   }
 
   ngOnInit(): void {
-    // eslint-disable-next-line no-undef
-    console.log('test');
-    // this.userService.getListUser();
-    // this.userSubscription = this.userService.userSubject.subscribe({
-    //   next: (users: User[]) => {
-    //     this.initTable(users);
-    //   }
-    // });
-    // this.userSubscription = this.userService.currentSelectSubject.subscribe({
-    //   next: (userSelected) => {
-    //     this.isSelected = userSelected.status;
-    //     this.selectedUser = userSelected.users;
-    //   }
-    // });
-    // this.userService.emitCurrentSelectSubject();
+    this._cltService.getListUser();
+    this._cltSubscription = this._cltService._cltSubject.subscribe({
+      next: (clients: Client[]) => {
+        this.initTable(clients);
+      }
+    });
+    this._cltSubscription = this._cltService._currentSelectSubject.subscribe({
+      next: (clientSelected) => {
+        this._isSelect = clientSelected.status;
+        this._cltSelect = clientSelected.clients;
+      }
+    });
+    this._cltService.emitCurrentSelectSubject();
   }
 
   ngOnDestroy(): void {
-    if (this.userSubscription) this.userSubscription.unsubscribe();
+    if (this._cltSubscription) this._cltSubscription.unsubscribe();
   }
 
-  initTable(users: User[]) {
-    this.dataSource = new MatTableDataSource<User>(users);
+  initTable(clients: Client[]) {
+    this._row = clients;
+    this._rowFiltered = this._row;
   }
 
   onCUD(action: string) {
-    // eslint-disable-next-line no-undef
-    console.log(action);
-    // let width = '800px';
-    // if (action === 'add') this.onUnSelectRow();
-    // if (action === 'delete') width = '350px';
+    let width = '800px';
+    if (action === 'add') this.onUnSelectRow();
+    if (action === 'delete') width = '350px';
+    let _clt: Client = this._cltSelect.length != 0 ? this._cltSelect[0] : new Client();
+    this.clientDialog.open(ClientFormComponent, {
+      width: width,
+      data: { action: action, _clt: { ..._clt } }
+    });
+  }
 
-    // let user: User = this.selectedUser.length != 0 ? this.selectedUser[0] : new User();
-    // this.userDialog.open(UserFormComponent, {
-    //   width: width,
-    //   data: { action: action, user: { ...user } }
-    // });
+  checkRowValue(row: Client, search: string) {
+    return (
+      row.numCompte.toString().toUpperCase().indexOf(search) >= 0 ||
+      row.nomClient.toUpperCase().indexOf(search) >= 0
+    );
   }
 
   onApplyFilter() {
-    this.dataSource.filter = this.searchKey?.trim();
+    this._rowFiltered = this._row.filter((row) =>
+      this.checkRowValue(row, this._search.toUpperCase())
+    );
   }
 
   onClearSearch() {
-    this.searchKey = '';
+    this._search = '';
     this.onApplyFilter();
   }
 
-  onSelectRow(selected: any) {
-    // eslint-disable-next-line no-undef
-    console.log(selected);
-    // if (this.selectedUser.length > 0) this.userService.setCurrentSelect(true, this.selectedUser);
+  onSelectRow() {
+    if (this._cltSelect.length > 0) this._cltService.setCurrentSelect(true, this._cltSelect);
   }
 
   onUnSelectRow() {
-    // eslint-disable-next-line no-undef
-    console.log('unselect row');
-    // this.userService.setCurrentSelect(false, []);
+    this._cltService.setCurrentSelect(false, []);
   }
 }

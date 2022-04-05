@@ -1,0 +1,68 @@
+@import "../../styles/settings";
+@import "../../styles/mixins";
+mat-form-field {
+  width: 100%;
+}
+.msg_error {
+  color: red;
+  margin-left: 10px;
+  margin: 10px 0px;
+  text-align: center;
+}
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+button {
+  background-color: $color-1;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  @include transition(all 200ms ease-in);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: initial;
+  &:hover {
+    opacity: 0.5;
+  }
+}
+button:hover {
+  opacity: 0.8;
+}
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+}
+.container {
+  padding: 16px;
+}
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+@media screen and (max-width: 400px) {
+  span.psw {
+    display: block;
+    float: none;
+  }
+  .cancelbtn {
+    width: 100%;
+  }
+
+  .container {
+    width: 100%;
+    background-color: none;
+  }
+}

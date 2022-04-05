@@ -42,4 +42,7 @@ export class AdminComponent implements OnInit {
       for (let c of Menu) if (c._path === this._title) this._title = c._title;
     } else this._title = 'Web Administration';
   }
+  onLogOut() {
+    this.router.navigate(['/', 'login']);
+  }
 }

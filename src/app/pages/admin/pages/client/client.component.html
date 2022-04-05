@@ -1,50 +1,59 @@
 <div style="margin-top: 0.2rem">
-  <button mat-stroked-button style="margin: 5px 5px" color="primary">
-    <!-- (click)="onCUD('add')" -->
+  <button mat-stroked-button style="margin: 5px 5px" color="primary" (click)="onCUD('add')">
     <i class="fa fa-user-plus"></i>
     Add
   </button>
-  <button mat-stroked-button style="margin: 5px 5px" color="primary">
-    <!-- [disabled]="!isSelected" -->
-    <!-- (click)="onCUD('edit')" -->
+  <button
+    mat-stroked-button
+    style="margin: 5px 5px"
+    color="primary"
+    [disabled]="!_isSelect"
+    (click)="onCUD('edit')"
+  >
     <i class="fa fa-edit"></i>
     Edit
   </button>
-  <button mat-stroked-button style="margin: 5px 5px" color="warn">
-    <!-- [disabled]="!isSelected" -->
-    <!-- (click)="onCUD('delete')" -->
+  <button
+    mat-stroked-button
+    style="margin: 5px 5px"
+    color="warn"
+    [disabled]="!_isSelect"
+    (click)="onCUD('delete')"
+  >
     <i class="fa fa-trash"></i>
     Delete
   </button>
-  <button mat-stroked-button style="margin: 5px 5px" color="primary">
-    <!-- [disabled]="!isSelected" -->
-    <!-- (click)="onUnSelectRow()" -->
+  <button
+    mat-stroked-button
+    style="margin: 5px 5px"
+    color="primary"
+    [disabled]="!_isSelect"
+    (click)="onUnSelectRow()"
+  >
     Unselect
   </button>
 
-  <!-- <mat-form-field style="float: right; width: 30%" appearance="legacy" floatLabel="never"> -->
-  <!-- <mat-label>Search</mat-label> -->
-  <!-- <input matInput /> -->
-  <!-- (keyup)="onApplyFilter()" [(ngModel)]="searchKey" -->
-  <!-- <i class="fa fa-search" matPrefix style="margin-right: 10px"></i> -->
-  <!-- <button mat-button mat-icon-button matSuffix> -->
-  <!-- *ngIf="searchKey" (click)="onClearSearch()" -->
-  <!-- <i class="fa fa-close" style="padding: 2px 0px 0px 4px; font-size: 13px"></i> -->
-  <!-- </button> -->
-  <!-- </mat-form-field> -->
+  <mat-form-field style="float: right; width: 30%" appearance="legacy" floatLabel="never">
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="onApplyFilter()" [(ngModel)]="_search" />
+    <i class="fa fa-search" matPrefix style="margin-right: 10px"></i>
+    <button mat-button mat-icon-button matSuffix *ngIf="_search" (click)="onClearSearch()">
+      <i class="fa fa-close" style="padding: 2px 0px 0px 4px; font-size: 13px"></i>
+    </button>
+  </mat-form-field>
 </div>
 <ngx-datatable
-  [rows]="dataSource?.filteredData"
-  [columnMode]="ColumnMode.force"
-  [selected]="selectedUser"
-  [selectionType]="SelectionType.single"
+  [rows]="_rowFiltered"
+  [columnMode]="_columnMode.force"
+  [selected]="_cltSelect"
+  [selectionType]="_selectionType.single"
   [headerHeight]="40"
   [rowHeight]="50"
   [footerHeight]="50"
   [scrollbarV]="true"
   [scrollbarH]="true"
   [sorts]="[{ prop: 'id', dir: 'asc' }]"
-  (click)="onSelectRow($event)"
+  (click)="onSelectRow()"
   class="material datatable"
 >
   <ngx-datatable-column name="Full Name" prop="full_name" [width]="350"></ngx-datatable-column>

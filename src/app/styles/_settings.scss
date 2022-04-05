@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,900");
+
+$font-family: "Poppins", sans-serif;
+$color-1: #301c11;
+$color-2: #523322;
+$color-3: #eecece;
+$body-color: #1e1e27;
+$bg-color: rgb(227, 227, 225);
+$border-color: rgba(0, 0, 0, 0.15);
+
+$color-bg-selection: #fff;
+$img-slider-1: url(../../assets/img/front/slider_1.jpg);
+$img-mobile-slider-1: url(../../assets/img/front/slider_1_mobile.jpg);
+$margin-section: 50px;
+
+$font-size-h1: 72px;
+$font-size-h2: 40px;
+$font-size-h3: 28px;
+$font-size-h4: 24px;
+$font-size-h5: 16px;
+$font-size-h6: 14px;
+$font-size-i: 20px;
+
+.fill_height {
+	height: 100%;
+}
+.link-active {
+	color: $color-1;
+}

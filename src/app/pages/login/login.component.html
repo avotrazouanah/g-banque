@@ -1,0 +1,56 @@
+<div style="margin-top: 100px">
+  <div class="container">
+    <div style="display: flex">
+      <div class="mat-typography" style="text-align: center; width: 100%; padding-top: 5px">
+        <h1>Login Now</h1>
+      </div>
+    </div>
+
+    <!-- <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"> -->
+    <form>
+      <div class="col-sm-11 col-md-11 col-lg-7" style="margin: auto">
+        <div class="container">
+          <label for="uname">
+            <b>Email</b>
+          </label>
+          <input
+            type="text"
+            matInput
+            placeholder="Enter email"
+            formControlName="email"
+            name="uname"
+            required
+          />
+
+          <label for="psw">
+            <b>Password</b>
+          </label>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            matInput
+            name="password"
+            formControlName="password"
+            required
+          />
+          <!-- <div *ngIf="msg_error" class="msg_error">
+            {{ msg_error }}
+          </div> -->
+          <!-- <button type="submit" style="margin-right: 10px" onclick="onLog()"> -->
+          <!-- [disabled]="loginForm.invalid || loading" -->
+          <button type="button" style="margin-right: 10px" (click)="onLog()">
+            <i class="fa fa-user" style="margin-right: 5px"></i>
+            <!-- *ngIf="!loading" -->
+            <img
+              src="../../../assets/img/loading.gif"
+              alt="loading_gif"
+              style="width: 16px; height: 16px"
+            />
+            <!-- *ngIf="loading" -->
+            Login
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

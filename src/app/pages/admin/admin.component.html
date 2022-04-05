@@ -6,13 +6,18 @@
   <div class="main-panel" id="main-panel">
     <nav class="navbar navbar-expand-lg navbar-absolute">
       <div class="container-fluid">
-        <div class="navbar-wrapper">
+        <div class="navbar-wrapper" style="width: 100%">
           <div *ngIf="_isMobile" class="navbar-toggle">
             <button mat-button mat-icon-button (click)="drawer.toggle()">
               <i class="fa fa-bars" aria-hidden="true" style="font-size: 20px"></i>
             </button>
           </div>
           <a class="navbar-brand" href="javascript:void(0)">{{ _title }}</a>
+
+          <div [ngClass]="{ mobile: _isMobile, pc: !_isMobile }" style="position: absolute">
+            <a class="navbar-brand" href="javascript:void(0)">{{ 'username' }}</a>
+            <a class="navbar-brand logout" (click)="onLogOut()"><i class="fa fa-sign-out"></i></a>
+          </div>
         </div>
       </div>
     </nav>
