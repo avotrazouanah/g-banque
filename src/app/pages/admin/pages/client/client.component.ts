@@ -32,7 +32,7 @@ export class ClientComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this._clientService.getListUser();
+    this._clientService.getListClient();
     this._clientSubscription = this._clientService._clientSubject.subscribe({
       next: (clients: Client[]) => {
         this.initTable(clients);

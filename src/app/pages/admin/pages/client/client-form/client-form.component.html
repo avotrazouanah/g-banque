@@ -6,9 +6,6 @@
 
 <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
   <div *ngIf="action !== 'delete'">
-    <div *ngIf="msg_error" class="msg_error">
-      {{ msg_error }}
-    </div>
     <div class="form_container">
       <mat-form-field hideRequiredMarker>
         <mat-label>Numéro compte</mat-label>
@@ -22,6 +19,9 @@
   </div>
   <div *ngIf="action === 'delete'">
     <p>Are you sure to delete user : {{ client.nomClient }} ?</p>
+  </div>
+  <div *ngIf="msg_error" class="msg_error">
+    {{ msg_error }}
   </div>
 
   <div style="float: right">

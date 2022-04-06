@@ -34,7 +34,7 @@ export class ClientService implements OnDestroy {
     this._clientSubject.next(this._clients.slice());
   }
 
-  getListUser() {
+  getListClient() {
     this._clientSubscription = this._httpClient
       .get<Client[]>(environment.api + '/client')
       .subscribe({
@@ -50,7 +50,7 @@ export class ClientService implements OnDestroy {
       });
   }
 
-  getListUserObs(): Observable<Client[]> {
+  getListClientObs(): Observable<Client[]> {
     return this._httpClient.get<Client[]>(environment.api + '/client').pipe(
       map((users) => {
         let _clients: Client[] = [];

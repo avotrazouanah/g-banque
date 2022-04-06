@@ -6,6 +6,7 @@ import { AuditCompteComponent } from './pages/audit-compte/audit-compte.componen
 import { AuditOperationComponent } from './pages/audit-operation/audit-operation.component';
 import { AuditRetraitComponent } from './pages/audit-retrait/audit-retrait.component';
 import { AuditVersementComponent } from './pages/audit-versement/audit-versement.component';
+import { ClientChooserComponent } from './common/client-chooser/client-chooser.component';
 import { ClientComponent } from './pages/client/client.component';
 import { ClientFormComponent } from './pages/client/client-form/client-form.component';
 import { CommonModule } from '@angular/common';
@@ -13,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import { NgModule } from '@angular/core';
@@ -36,7 +38,8 @@ import { VersementFormComponent } from './pages/versement/versement-form/verseme
     AuditCompteComponent,
     UserComponent,
     ClientFormComponent,
-    VersementFormComponent
+    VersementFormComponent,
+    ClientChooserComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +52,8 @@ import { VersementFormComponent } from './pages/versement/versement-form/verseme
     MatInputModule,
     MatButtonModule,
     MatDialogModule,
-    MatTableModule
+    MatTableModule,
+    MatSelectModule
   ]
 })
 export class AdminModule {}

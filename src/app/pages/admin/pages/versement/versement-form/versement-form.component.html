@@ -1,1 +1,59 @@
-<p>versement-form works!</p>
+<div style="display: flex">
+  <div class="mat-typography" style="text-align: center; width: 100%; padding-top: 5px">
+    <h1>{{ title }} Versement</h1>
+  </div>
+</div>
+
+<form [formGroup]="versementForm" (ngSubmit)="onSubmit()">
+  <div *ngIf="action !== 'delete'">
+    <div class="form_container">
+      <mat-form-field hideRequiredMarker>
+        <mat-label>Compte</mat-label>
+        <mat-select name="numCompte" formControlName="numCompte">
+          <!-- [(ngModel)]="product_id_selected" -->
+          <mat-option *ngFor="let client of _clients" [value]="client.numCompte">
+            {{ client.numCompte + ' - ' + client.nomClient }}
+          </mat-option>
+        </mat-select>
+        <button mat-icon-button matSuffix type="button" (click)="onOpenProductTable($event)">
+          <i class="fa fa-plus"></i>
+        </button>
+      </mat-form-field>
+      <mat-form-field hideRequiredMarker>
+        <mat-label>Numéro cheque</mat-label>
+        <input formControlName="numCheck" type="text" matInput name="numCheck" />
+      </mat-form-field>
+      <mat-form-field hideRequiredMarker>
+        <mat-label>Montant</mat-label>
+        <input formControlName="montant" type="text" matInput name="montant" />
+      </mat-form-field>
+      <mat-form-field hideRequiredMarker>
+        <mat-label>Date</mat-label>
+        <input formControlName="date" type="date" matInput name="date" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div *ngIf="action === 'delete'">
+    <p>Are you sure to delete Versement : N° {{ versement.numVersement }} ?</p>
+  </div>
+  <div *ngIf="msg_error" class="msg_error">
+    {{ msg_error }}
+  </div>
+  <div style="float: right">
+    <button
+      type="submit"
+      mat-stroked-button
+      [color]="colorBtn"
+      [disabled]="(action !== 'delete' && versementForm.invalid) || loading"
+    >
+      <i [class]="classIcon" *ngIf="!loading"></i>
+      <img
+        src="../../../../../../assets/img/loading.gif"
+        style="width: 16px; height: 16px"
+        *ngIf="loading"
+      />
+      {{ nameBtn }}
+    </button>
+    <button type="button" mat-stroked-button (click)="onClose()">Close</button>
+  </div>
+</form>

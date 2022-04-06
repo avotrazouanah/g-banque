@@ -136,7 +136,7 @@ export class ClientFormComponent implements OnInit, OnDestroy {
   handleResult(res: any) {
     this.loading = false;
     if (res.success) {
-      this.clientService.getListUser();
+      this.clientService.getListClient();
       this.userDialogRef.close();
       this.clientService.setCurrentSelect(false, []);
     }

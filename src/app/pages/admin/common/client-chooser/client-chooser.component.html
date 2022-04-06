@@ -1,0 +1,51 @@
+<span class="mat-headline" style="margin: 10px 5px">
+  <i class="fa fa-user"></i>
+  Compte Client
+  <button
+    mat-stroked-button
+    style="margin: 5px 5px; float: right"
+    color="primary"
+    (click)="onClose()"
+  >
+    Ok
+  </button>
+</span>
+
+<div style="margin-top: 1rem">
+  <button
+    mat-stroked-button
+    style="margin: 5px 5px"
+    [disabled]="!isSelected"
+    color="primary"
+    (click)="onUnSelectRow()"
+  >
+    Unselect
+  </button>
+
+  <mat-form-field style="float: right; width: 30%" appearance="legacy" floatLabel="never">
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="onApplyFilter()" [(ngModel)]="searchKey" />
+    <i class="fa fa-search" matPrefix style="margin-right: 10px"></i>
+    <button mat-button mat-icon-button matSuffix *ngIf="searchKey" (click)="onClearSearch()">
+      <i class="fa fa-close" style="padding: 2px 0px 0px 4px; font-size: 13px"></i>
+    </button>
+  </mat-form-field>
+</div>
+
+<ngx-datatable
+  [rows]="rowFiltered"
+  [columnMode]="ColumnMode.force"
+  [selected]="clientSelect"
+  [selectionType]="SelectionType.single"
+  [headerHeight]="40"
+  [rowHeight]="50"
+  [footerHeight]="50"
+  [scrollbarV]="true"
+  [scrollbarH]="true"
+  [sorts]="[{ prop: 'id', dir: 'asc' }]"
+  (click)="onSelectRow($event)"
+  class="material datatable"
+>
+  <ngx-datatable-column name="N° Compte" prop="numCompte" [width]="350"></ngx-datatable-column>
+  <ngx-datatable-column name="Nom" prop="nomClient" [width]="300"></ngx-datatable-column>
+</ngx-datatable>

@@ -32,7 +32,7 @@ export class VersementComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this._versementService.getListUser();
+    this._versementService.getListVersement();
     this._versementSubscription = this._versementService._versementSubject.subscribe({
       next: (versements: Versement[]) => {
         this.initTable(versements);

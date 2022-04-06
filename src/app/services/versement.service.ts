@@ -35,7 +35,7 @@ export class VersementService implements OnDestroy {
     this._versementSubject.next(this._versement.slice());
   }
 
-  getListUser() {
+  getListVersement() {
     this._versementSubscription = this._httpClient
       .get<Versement[]>(environment.api + '/versement')
       .subscribe({
@@ -59,7 +59,7 @@ export class VersementService implements OnDestroy {
       });
   }
 
-  getListUserObs(): Observable<Versement[]> {
+  getListVersementObs(): Observable<Versement[]> {
     return this._httpClient.get<Versement[]>(environment.api + '/versement').pipe(
       map((row: any) => {
         let _versement: Versement[] = [];
