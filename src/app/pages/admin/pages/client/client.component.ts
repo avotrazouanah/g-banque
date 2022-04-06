@@ -68,7 +68,7 @@ export class ClientComponent implements OnInit, OnDestroy {
 
   checkRowValue(row: Client, search: string) {
     return (
-      row.numCompte.toString().toUpperCase().indexOf(search) >= 0 ||
+      row.numCompte.toUpperCase().indexOf(search) >= 0 ||
       row.nomClient.toUpperCase().indexOf(search) >= 0
     );
   }

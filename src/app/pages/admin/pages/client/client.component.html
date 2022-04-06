@@ -47,6 +47,7 @@
   [columnMode]="_columnMode.force"
   [selected]="_clientSelect"
   [selectionType]="_selectionType.single"
+  [messages]="_msg"
   [headerHeight]="40"
   [rowHeight]="50"
   [footerHeight]="50"
@@ -56,12 +57,6 @@
   (click)="onSelectRow()"
   class="material datatable"
 >
-  <ngx-datatable-column name="Full Name" prop="full_name" [width]="350"></ngx-datatable-column>
-  <ngx-datatable-column name="Email" prop="email" [width]="300"></ngx-datatable-column>
-  <ngx-datatable-column name="Address" prop="address" [width]="300"></ngx-datatable-column>
-  <ngx-datatable-column name="City" prop="town" [width]="250"></ngx-datatable-column>
-  <ngx-datatable-column name="Postal Code" prop="postal_code" [width]="80"></ngx-datatable-column>
-  <ngx-datatable-column name="Country" prop="country" [width]="250"></ngx-datatable-column>
-  <ngx-datatable-column name="Role" prop="role" [width]="200"></ngx-datatable-column>
-  <ngx-datatable-column name="Number Phone" prop="numberPhone" [width]="300"></ngx-datatable-column>
+  <ngx-datatable-column name="N° Compte" prop="numCompte" [width]="350"></ngx-datatable-column>
+  <ngx-datatable-column name="Nom" prop="nomClient" [width]="300"></ngx-datatable-column>
 </ngx-datatable>

@@ -1,9 +1,9 @@
 export class Client {
-  public numCompte: number;
+  public numCompte: string;
   public nomClient: string;
   public solde: number;
 
-  constructor(numCompte: number = 0, nomClient: string = '', solde: number = 0) {
+  constructor(numCompte: string = '', nomClient: string = '', solde: number = 0) {
     this.numCompte = numCompte;
     this.nomClient = nomClient;
     this.solde = solde;

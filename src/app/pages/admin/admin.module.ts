@@ -21,6 +21,7 @@ import { RetraitComponent } from './pages/retrait/retrait.component';
 import { SidebarComponent } from 'src/app/pages/admin/common/sidebar/sidebar.component';
 import { UserComponent } from './pages/user/user.component';
 import { VersementComponent } from './pages/versement/versement.component';
+import { VersementFormComponent } from './pages/versement/versement-form/versement-form.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { VersementComponent } from './pages/versement/versement.component';
     AuditRetraitComponent,
     AuditCompteComponent,
     UserComponent,
-    ClientFormComponent
+    ClientFormComponent,
+    VersementFormComponent
   ],
   imports: [
     CommonModule,

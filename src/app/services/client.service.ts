@@ -30,12 +30,12 @@ export class ClientService implements OnDestroy {
     if (this._clientSubscription) this._clientSubscription.unsubscribe();
   }
 
-  emitUserSubject() {
+  emitClientSubject() {
     this._clientSubject.next(this._clients.slice());
   }
 
   getListUser() {
-    this._clientSubscription = this.httpClient
+    this._clientSubscription = this._httpClient
       .get<Client[]>(environment.api + '/client')
       .subscribe({
         next: (users) => {
@@ -43,7 +43,7 @@ export class ClientService implements OnDestroy {
           users.forEach((client) => {
             this._clients.push(new Client(client.numCompte, client.nomClient, client.solde));
           });
-          this.emitUserSubject();
+          this.emitClientSubject();
         },
         error: () =>
           this._notificationService.alert({ _content: 'Connexion Error', _style: 'color: red' })
@@ -51,7 +51,7 @@ export class ClientService implements OnDestroy {
   }
 
   getListUserObs(): Observable<Client[]> {
-    return this.httpClient.get<Client[]>(environment.api + '/client').pipe(
+    return this._httpClient.get<Client[]>(environment.api + '/client').pipe(
       map((users) => {
         let _clients: Client[] = [];
         users.forEach((client) => {
@@ -63,24 +63,24 @@ export class ClientService implements OnDestroy {
   }
 
   getOne(id: number): Observable<Client> {
-    return this.httpClient
+    return this._httpClient
       .get<Client>(environment.api + '/client/' + id)
       .pipe(map((client: Client) => client || new Client()));
   }
 
   add(client: Client): Observable<any> {
-    return this.httpClient.post<any>(environment.api + '/client', client);
+    return this._httpClient.post<any>(environment.api + '/client', client);
   }
 
   edit(client: Client): Observable<any> {
-    return this.httpClient.put<any>(environment.api + '/client/' + client.numCompte, client);
+    return this._httpClient.put<any>(environment.api + '/client/' + client.numCompte, client);
   }
 
-  delete(id: number): Observable<any> {
-    return this.httpClient.delete<any>(environment.api + '/client/' + id);
+  delete(id: string): Observable<any> {
+    return this._httpClient.delete<any>(environment.api + '/client/' + id);
   }
 
-  getOneArray(_clients: Client[], numCompte: number): Client {
+  getOneArray(_clients: Client[], numCompte: string): Client {
     return _clients?.filter((client) => client.numCompte === numCompte)[0];
   }
 
