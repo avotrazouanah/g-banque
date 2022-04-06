@@ -24,6 +24,8 @@ import { SidebarComponent } from 'src/app/pages/admin/common/sidebar/sidebar.com
 import { UserComponent } from './pages/user/user.component';
 import { VersementComponent } from './pages/versement/versement.component';
 import { VersementFormComponent } from './pages/versement/versement-form/versement-form.component';
+import { RetraitFormComponent } from './pages/retrait/retrait-form/retrait-form.component';
+import { UserFormComponent } from './pages/user/user-form/user-form.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { VersementFormComponent } from './pages/versement/versement-form/verseme
     UserComponent,
     ClientFormComponent,
     VersementFormComponent,
-    ClientChooserComponent
+    ClientChooserComponent,
+    RetraitFormComponent,
+    UserFormComponent
   ],
   imports: [
     CommonModule,

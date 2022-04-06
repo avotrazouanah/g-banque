@@ -2,52 +2,39 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-
-import { Client } from 'src/app/models/client';
-import { ClientService } from 'src/app/services/client.service';
-import { NotificationMessageService } from 'src/app/services/notification-message.service';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/user';
+import { NotificationMessageService } from 'src/app/services/notification-message.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-client-form',
-  templateUrl: './client-form.component.html',
-  styleUrls: ['./client-form.component.scss']
+  selector: 'app-user-form',
+  templateUrl: './user-form.component.html',
+  styleUrls: ['./user-form.component.scss']
 })
-export class ClientFormComponent implements OnInit, OnDestroy {
+export class UserFormComponent implements OnInit, OnDestroy {
   action!: string;
   title!: string;
   classIcon!: string;
   nameBtn!: string;
   colorBtn!: string;
-  client!: Client;
-  clientForm!: FormGroup;
+  user!: User;
+  userForm!: FormGroup;
   msg_error: string = '';
   tempSubscription!: Subscription;
   loading: boolean = false;
 
-  // _clientRef: MatDialogRef<ClientFormComponent>;
-  // _data: { _action: string; _client: Client };
-  // _formBuilder: FormBuilder;
-  // _clientService: ClientService;
-  // _notificationService: NotificationMessageService;
-
   constructor(
-    private clientDialogRef: MatDialogRef<ClientFormComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: { _action: string; _client: Client },
+    private userDialogRef: MatDialogRef<UserFormComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: { _action: string; _user: User },
     private formBuilder: FormBuilder,
-    private clientService: ClientService,
+    private userService: UserService,
     private notificationService: NotificationMessageService
-  ) {
-    // this._clientRef = clientDialogRef;
-    // this._data = data;
-    // this._formBuilder = formBuilder;
-    // this._clientService = clientService;
-    // this._notificationService = notificationService;
-  }
+  ) {}
 
   ngOnInit(): void {
     this.initDialog();
-    this.initForm(this.client);
+    this.initForm(this.user);
   }
 
   ngOnDestroy(): void {
@@ -56,13 +43,13 @@ export class ClientFormComponent implements OnInit, OnDestroy {
 
   initDialog() {
     this.action = this.data._action;
-    this.client = this.data._client;
+    this.user = this.data._user;
     this.colorBtn = 'primary';
     switch (this.action) {
       case 'add':
         this.title = 'Add';
         this.nameBtn = 'Add';
-        this.classIcon = 'fa fa-client-plus';
+        this.classIcon = 'fa fa-user-plus';
         break;
       case 'edit':
         this.title = 'Edit';
@@ -80,13 +67,12 @@ export class ClientFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  initForm(client: Client) {
-    this.clientForm = this.formBuilder.group({
-      numCompte: [
-        client.numCompte,
-        [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(1)]
-      ],
-      nomClient: [client.nomClient, Validators.required]
+  initForm(user: User) {
+    this.userForm = this.formBuilder.group({
+      username: [user.username, [Validators.required]],
+      name: [user.name, Validators.required],
+      password: [user.password, Validators.required],
+      type: [user.type, Validators.required]
     });
   }
 
@@ -94,14 +80,17 @@ export class ClientFormComponent implements OnInit, OnDestroy {
     this.msg_error = '';
     this.loading = true;
     if (this.action != 'delete') {
-      this.client = new Client(
-        this.clientForm.value['numCompte'],
-        this.clientForm.value['nomCompte']
+      this.user = new User(
+        this.userForm.value['username'],
+        this.userForm.value['name'],
+        this.userForm.value['password'],
+        this.userForm.value['type'],
+        ''
       );
     }
     switch (this.action) {
       case 'add':
-        this.tempSubscription = this.clientService.add(this.client).subscribe({
+        this.tempSubscription = this.userService.add(this.user).subscribe({
           next: (res) => this.handleResult(res),
           error: (error) => {
             this.handleError(error);
@@ -109,7 +98,7 @@ export class ClientFormComponent implements OnInit, OnDestroy {
         });
         break;
       case 'edit':
-        this.tempSubscription = this.clientService.edit(this.client).subscribe({
+        this.tempSubscription = this.userService.edit(this.user).subscribe({
           next: (res) => this.handleResult(res),
           error: (error) => {
             this.handleError(error);
@@ -117,7 +106,7 @@ export class ClientFormComponent implements OnInit, OnDestroy {
         });
         break;
       case 'delete':
-        this.tempSubscription = this.clientService.delete(this.client.numCompte).subscribe({
+        this.tempSubscription = this.userService.delete(this.user.username).subscribe({
           next: (res) => this.handleResult(res),
           error: (error) => {
             this.handleError(error);
@@ -130,15 +119,15 @@ export class ClientFormComponent implements OnInit, OnDestroy {
   }
 
   onClose() {
-    this.clientDialogRef.close();
+    this.userDialogRef.close();
   }
 
   handleResult(res: any) {
     this.loading = false;
     if (res.success) {
-      this.clientService.getListClient();
-      this.clientDialogRef.close();
-      this.clientService.setCurrentSelect(false, []);
+      this.userService.getListUser();
+      this.userDialogRef.close();
+      this.userService.setCurrentSelect(false, []);
     }
   }
 

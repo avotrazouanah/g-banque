@@ -1,16 +1,15 @@
 <div style="display: flex">
   <div class="mat-typography" style="text-align: center; width: 100%; padding-top: 5px">
-    <h1>{{ title }} Versement</h1>
+    <h1>{{ title }} Retrait</h1>
   </div>
 </div>
 
-<form [formGroup]="versementForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="retraitForm" (ngSubmit)="onSubmit()">
   <div *ngIf="action !== 'delete'">
     <div class="form_container">
       <mat-form-field hideRequiredMarker>
         <mat-label>Compte</mat-label>
         <mat-select name="numCompte" formControlName="numCompte" [(ngModel)]="client_id_selected">
-          <!-- [(ngModel)]="product_id_selected" -->
           <mat-option *ngFor="let client of _clients" [value]="client.numCompte">
             {{ client.numCompte + ' - ' + client.nomClient }}
           </mat-option>
@@ -34,7 +33,7 @@
     </div>
   </div>
   <div *ngIf="action === 'delete'">
-    <p>Are you sure to delete Versement : N° {{ versement.numVersement }} ?</p>
+    <p>Are you sure to delete Versement : N° {{ retrait.numRetrait }} ?</p>
   </div>
   <div *ngIf="msg_error" class="msg_error">
     {{ msg_error }}
@@ -44,7 +43,7 @@
       type="submit"
       mat-stroked-button
       [color]="colorBtn"
-      [disabled]="(action !== 'delete' && versementForm.invalid) || loading"
+      [disabled]="(action !== 'delete' && retraitForm.invalid) || loading"
     >
       <i [class]="classIcon" *ngIf="!loading"></i>
       <img

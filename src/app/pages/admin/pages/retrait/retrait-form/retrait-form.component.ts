@@ -2,27 +2,27 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { NotificationMessageService } from 'src/app/services/notification-message.service';
-import { Client } from 'src/app/models/client';
-import { ClientChooserComponent } from '../../../common/client-chooser/client-chooser.component';
-import { ClientService } from 'src/app/services/client.service';
 import { Subscription } from 'rxjs';
-import { Versement } from 'src/app/models/versement';
-import { VersementService } from 'src/app/services/versement.service';
+import { Client } from 'src/app/models/client';
+import { ClientService } from 'src/app/services/client.service';
+import { Retrait } from 'src/app/models/retrait';
+import { ClientChooserComponent } from '../../../common/client-chooser/client-chooser.component';
+import { NotificationMessageService } from 'src/app/services/notification-message.service';
+import { RetraitService } from 'src/app/services/retrait.service';
 
 @Component({
-  selector: 'app-versement-form',
-  templateUrl: './versement-form.component.html',
-  styleUrls: ['./versement-form.component.scss']
+  selector: 'app-retrait-form',
+  templateUrl: './retrait-form.component.html',
+  styleUrls: ['./retrait-form.component.scss']
 })
-export class VersementFormComponent implements OnInit, OnDestroy {
+export class RetraitFormComponent implements OnInit, OnDestroy {
   action!: string;
   title!: string;
   classIcon!: string;
   nameBtn!: string;
   colorBtn!: string;
-  versement!: Versement;
-  versementForm!: FormGroup;
+  retrait!: Retrait;
+  retraitForm!: FormGroup;
   msg_error: string = '';
   tempSubscription!: Subscription;
   loading: boolean = false;
@@ -30,10 +30,10 @@ export class VersementFormComponent implements OnInit, OnDestroy {
   client_id_selected: string = '';
 
   constructor(
-    private versementDialogRef: MatDialogRef<VersementFormComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: { _action: string; _versement: Versement },
+    private retraitDialogRef: MatDialogRef<RetraitFormComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: { _action: string; _retrait: Retrait },
     private formBuilder: FormBuilder,
-    private versementService: VersementService,
+    private retraitService: RetraitService,
     private notificationService: NotificationMessageService,
     private clientService: ClientService,
     private clientChooserDialog: MatDialog
@@ -51,11 +51,11 @@ export class VersementFormComponent implements OnInit, OnDestroy {
 
     this.tempSubscription = this.clientService._currentSelectSubject.subscribe({
       next: (p) => {
-        this.client_id_selected = p.clients[0]?.numCompte || this.data._versement.client.numCompte;
+        this.client_id_selected = p.clients[0]?.numCompte || this.data._retrait.client.numCompte;
       }
     });
     this.initDialog();
-    this.initForm(this.versement);
+    this.initForm(this.retrait);
   }
 
   ngOnDestroy(): void {
@@ -64,13 +64,13 @@ export class VersementFormComponent implements OnInit, OnDestroy {
 
   initDialog() {
     this.action = this.data._action;
-    this.versement = this.data._versement;
+    this.retrait = this.data._retrait;
     this.colorBtn = 'primary';
     switch (this.action) {
       case 'add':
         this.title = 'Add';
         this.nameBtn = 'Add';
-        this.classIcon = 'fa fa-versement-plus';
+        this.classIcon = 'fa fa-retrait-plus';
         break;
       case 'edit':
         this.title = 'Edit';
@@ -88,10 +88,10 @@ export class VersementFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  initForm(versement: Versement) {
-    this.versementForm = this.formBuilder.group({
+  initForm(retrait: Retrait) {
+    this.retraitForm = this.formBuilder.group({
       numCheck: [
-        versement.numCheck,
+        retrait.numCheck,
         [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(1)]
       ],
       numCompte: [
@@ -99,10 +99,10 @@ export class VersementFormComponent implements OnInit, OnDestroy {
         [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(1)]
       ],
       montant: [
-        versement.client.numCompte,
+        retrait.client.numCompte,
         [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(1)]
       ],
-      date: [versement.date, [Validators.required]]
+      date: [retrait.date, [Validators.required]]
     });
   }
 
@@ -110,14 +110,14 @@ export class VersementFormComponent implements OnInit, OnDestroy {
     this.msg_error = '';
     this.loading = true;
     if (this.action != 'delete') {
-      this.versement = new Versement(
-        this.versementForm.value['numCompte'],
-        this.versementForm.value['nomCompte']
+      this.retrait = new Retrait(
+        this.retraitForm.value['numCompte'],
+        this.retraitForm.value['nomCompte']
       );
     }
     switch (this.action) {
       case 'add':
-        this.tempSubscription = this.versementService.add(this.versement).subscribe({
+        this.tempSubscription = this.retraitService.add(this.retrait).subscribe({
           next: (res) => this.handleResult(res),
           error: (error) => {
             this.handleError(error);
@@ -125,7 +125,7 @@ export class VersementFormComponent implements OnInit, OnDestroy {
         });
         break;
       case 'edit':
-        this.tempSubscription = this.versementService.edit(this.versement).subscribe({
+        this.tempSubscription = this.retraitService.edit(this.retrait).subscribe({
           next: (res) => this.handleResult(res),
           error: (error) => {
             this.handleError(error);
@@ -133,14 +133,12 @@ export class VersementFormComponent implements OnInit, OnDestroy {
         });
         break;
       case 'delete':
-        this.tempSubscription = this.versementService
-          .delete(this.versement.numVersement)
-          .subscribe({
-            next: (res) => this.handleResult(res),
-            error: (error) => {
-              this.handleError(error);
-            }
-          });
+        this.tempSubscription = this.retraitService.delete(this.retrait.numRetrait).subscribe({
+          next: (res) => this.handleResult(res),
+          error: (error) => {
+            this.handleError(error);
+          }
+        });
         break;
       default:
         this.msg_error = 'No action';
@@ -148,7 +146,7 @@ export class VersementFormComponent implements OnInit, OnDestroy {
   }
 
   onClose() {
-    this.versementDialogRef.close();
+    this.retraitDialogRef.close();
   }
 
   onOpenProductTable(event: any) {
@@ -162,9 +160,9 @@ export class VersementFormComponent implements OnInit, OnDestroy {
   handleResult(res: any) {
     this.loading = false;
     if (res.success) {
-      this.versementService.getListVersement();
-      this.versementDialogRef.close();
-      this.versementService.setCurrentSelect(false, []);
+      this.retraitService.getListRetrait();
+      this.retraitDialogRef.close();
+      this.retraitService.setCurrentSelect(false, []);
     }
   }
 
