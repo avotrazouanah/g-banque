@@ -28,15 +28,16 @@ export class AuditVersementService {
 
   getListAuditVersement(date1: string = '', date2: string = '') {
     this.auditVersementSubcription = this.httpClient
-      .post<any[]>(environment.api + '/audit-versement', { firstDate: date1, secondDate: date2 })
+      .post<any[]>(environment.api + '/audit_versement', { first_date: date1, second_date: date2 })
       .subscribe({
         next: (row) => {
           this.auditVersementList = [];
+          // console.log(row);
           row.forEach((item) => {
             this.auditVersementList.push(
               new AuditVersement(
                 item.ops,
-                item.date,
+                item.date.split('T')[0],
                 item.numVersement,
                 item.anc_montant,
                 item.n_montant,
@@ -57,6 +58,6 @@ export class AuditVersementService {
   }
 
   getOperationFilterTypes(_operations: AuditVersement[], ops: string): AuditVersement[] {
-    return _operations?.filter((item) => !(item.ops === ops));
+    return _operations?.filter((item) => item.ops === ops);
   }
 }

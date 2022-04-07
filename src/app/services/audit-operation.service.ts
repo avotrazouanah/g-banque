@@ -28,17 +28,15 @@ export class AuditOperationService {
 
   getListOperation(date1: string = '', date2: string = '') {
     this.operationSubcription = this.httpClient
-      .post<any[]>(environment.api + '/audit_operation', { firstDate: date1, secondDate: date2 })
+      .post<any[]>(environment.api + '/audit_operation', { first_date: date1, second_date: date2 })
       .subscribe({
         next: (row) => {
           this.operationList = [];
-          // eslint-disable-next-line no-undef
-          console.log(row);
           row.forEach((item) => {
             this.operationList.push(
               new AuditOperation(
                 item.ops,
-                item.date,
+                item.date.split('T')[0],
                 item.numCheck,
                 item.montant,
                 new Client(item.numCompte, item.nomClient),
@@ -58,6 +56,6 @@ export class AuditOperationService {
   }
 
   getOperationFilterTypes(_operations: AuditOperation[], ops: string): AuditOperation[] {
-    return _operations?.filter((item) => !(item.ops === ops));
+    return _operations?.filter((item) => item.ops === ops);
   }
 }

@@ -28,15 +28,16 @@ export class AuditRetraitService {
 
   getListAuditRetrait(date1: string = '', date2: string = '') {
     this.auditVersementSubcription = this.httpClient
-      .post<any[]>(environment.api + '/audit-retrait', { firstDate: date1, secondDate: date2 })
+      .post<any[]>(environment.api + '/audit_retrait', { first_date: date1, second_date: date2 })
       .subscribe({
         next: (row) => {
           this.auditRetraitList = [];
+          // console.log(row);
           row.forEach((item) => {
             this.auditRetraitList.push(
               new AuditRetrait(
                 item.ops,
-                item.date,
+                item.date.split('T')[0],
                 item.numVersement,
                 item.anc_montant,
                 item.n_montant,
@@ -57,6 +58,6 @@ export class AuditRetraitService {
   }
 
   getOperationFilterTypes(_operations: AuditRetrait[], ops: string): AuditRetrait[] {
-    return _operations?.filter((item) => !(item.ops === ops));
+    return _operations?.filter((item) => item.ops === ops);
   }
 }

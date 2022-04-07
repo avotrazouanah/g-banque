@@ -28,7 +28,7 @@ export class AuditCompteService {
 
   getListAuditCompte(date1: string = '', date2: string = '') {
     this.auditVersementSubcription = this.httpClient
-      .post<any[]>(environment.api + '/audit-retrait', { firstDate: date1, secondDate: date2 })
+      .post<any[]>(environment.api + '/audit_compte', { first_date: date1, second_date: date2 })
       .subscribe({
         next: (row) => {
           this.auditCompteList = [];
@@ -36,9 +36,9 @@ export class AuditCompteService {
             this.auditCompteList.push(
               new AuditCompte(
                 item.ops,
-                item.date,
-                item.anc_montant,
-                item.n_montant,
+                item.date.split('T')[0],
+                item.anc_solde,
+                item.n_solde,
                 new Client(item.numCompte, item.nomClient),
                 new User(item.username, item.name, '', item.type)
               )
@@ -56,6 +56,6 @@ export class AuditCompteService {
   }
 
   getOperationFilterTypes(_operations: AuditCompte[], ops: string): AuditCompte[] {
-    return _operations?.filter((item) => !(item.ops === ops));
+    return _operations?.filter((item) => item.ops === ops);
   }
 }

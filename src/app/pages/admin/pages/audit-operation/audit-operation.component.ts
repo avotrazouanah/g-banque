@@ -77,9 +77,10 @@ export class AuditOperationComponent implements OnInit, OnDestroy {
     }
     this.onApplyFilterTypes();
   }
+
   onClearDateFilter() {
     this.dateFilter1 = '';
     this.dateFilter2 = '';
-    this._auditOperationService.getListOperation();
+    this.onSetDateFilter();
   }
 }

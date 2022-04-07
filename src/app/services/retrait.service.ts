@@ -47,7 +47,7 @@ export class RetraitService implements OnDestroy {
                 item.numRetrait,
                 item.numCheck,
                 item.montant,
-                item.date,
+                item.date.split('T')[0],
                 new Client(item.numCompte, item.nomClient)
               )
             );
@@ -70,7 +70,7 @@ export class RetraitService implements OnDestroy {
               item.numRetrait,
               item.numCheck,
               item.montant,
-              item.date,
+              item.date.split('T')[0],
               new Client(item.numCompte, item.nomClient)
             )
           ];
