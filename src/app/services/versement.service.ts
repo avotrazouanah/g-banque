@@ -87,14 +87,22 @@ export class VersementService implements OnDestroy {
   }
 
   add(versement: Versement): Observable<any> {
-    return this._httpClient.post<any>(environment.api + '/versement', versement);
+    return this._httpClient.post<any>(environment.api + '/versement', {
+      numCheck: versement.numCheck,
+      numCompte: versement.client.numCompte,
+      montant: versement.montant,
+      date: versement.date
+    });
   }
 
   edit(versement: Versement): Observable<any> {
-    return this._httpClient.put<any>(
-      environment.api + '/versement/' + versement.numVersement,
-      versement
-    );
+    return this._httpClient.put<any>(environment.api + '/versement/' + versement.numVersement, {
+      numVersement: versement.numVersement,
+      numCheck: versement.numCheck,
+      numCompte: versement.client.numCompte,
+      montant: versement.montant,
+      date: versement.date
+    });
   }
 
   delete(id: string): Observable<any> {

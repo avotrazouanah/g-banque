@@ -54,6 +54,7 @@ export class VersementFormComponent implements OnInit, OnDestroy {
         this.client_id_selected = p.clients[0]?.numCompte || this.data._versement.client.numCompte;
       }
     });
+    this.clientService.emitCurrentSelectSubject();
     this.initDialog();
     this.initForm(this.versement);
   }
@@ -70,7 +71,7 @@ export class VersementFormComponent implements OnInit, OnDestroy {
       case 'add':
         this.title = 'Add';
         this.nameBtn = 'Add';
-        this.classIcon = 'fa fa-versement-plus';
+        this.classIcon = 'fa fa-plus';
         break;
       case 'edit':
         this.title = 'Edit';
@@ -111,8 +112,11 @@ export class VersementFormComponent implements OnInit, OnDestroy {
     this.loading = true;
     if (this.action != 'delete') {
       this.versement = new Versement(
-        this.versementForm.value['numCompte'],
-        this.versementForm.value['nomCompte']
+        this.versement.numVersement,
+        this.versementForm.value['numCheck'],
+        this.versementForm.value['montant'],
+        this.versementForm.value['date'],
+        new Client(this.versementForm.value['numCompte'])
       );
     }
     switch (this.action) {

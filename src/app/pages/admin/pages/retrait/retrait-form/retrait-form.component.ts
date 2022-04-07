@@ -54,6 +54,7 @@ export class RetraitFormComponent implements OnInit, OnDestroy {
         this.client_id_selected = p.clients[0]?.numCompte || this.data._retrait.client.numCompte;
       }
     });
+    this.clientService.emitCurrentSelectSubject();
     this.initDialog();
     this.initForm(this.retrait);
   }
@@ -70,7 +71,7 @@ export class RetraitFormComponent implements OnInit, OnDestroy {
       case 'add':
         this.title = 'Add';
         this.nameBtn = 'Add';
-        this.classIcon = 'fa fa-retrait-plus';
+        this.classIcon = 'fa fa-plus';
         break;
       case 'edit':
         this.title = 'Edit';
@@ -111,8 +112,11 @@ export class RetraitFormComponent implements OnInit, OnDestroy {
     this.loading = true;
     if (this.action != 'delete') {
       this.retrait = new Retrait(
-        this.retraitForm.value['numCompte'],
-        this.retraitForm.value['nomCompte']
+        this.retrait.numRetrait,
+        this.retraitForm.value['numCheck'],
+        this.retraitForm.value['montant'],
+        this.retraitForm.value['date'],
+        new Client(this.retraitForm.value['numCompte'])
       );
     }
     switch (this.action) {

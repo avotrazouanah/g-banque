@@ -57,10 +57,15 @@
   (click)="onSelectRow()"
   class="material datatable"
 >
-  <ngx-datatable-column name="N° Retrait" prop="numRetrait"></ngx-datatable-column>
+  <ngx-datatable-column
+    name="N° Retrait"
+    prop="numRetrait"
+    [width]="80"
+    frozenLeft="true"
+  ></ngx-datatable-column>
   <ngx-datatable-column name="Date" prop="dateStr"></ngx-datatable-column>
   <ngx-datatable-column name="N° Cheque" prop="numCheck"></ngx-datatable-column>
-  <ngx-datatable-column name="N° Compte" prop="client.numCompte"></ngx-datatable-column>
   <ngx-datatable-column name="Montant" prop="montant"></ngx-datatable-column>
-  <ngx-datatable-column name="Nom" prop="client.nomClient"></ngx-datatable-column>
+  <ngx-datatable-column name="N° Compte" prop="client.numCompte"></ngx-datatable-column>
+  <ngx-datatable-column name="Nom Client" prop="client.nomClient"></ngx-datatable-column>
 </ngx-datatable>

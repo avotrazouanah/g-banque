@@ -69,11 +69,17 @@ export class ClientService implements OnDestroy {
   }
 
   add(client: Client): Observable<any> {
-    return this._httpClient.post<any>(environment.api + '/client', client);
+    return this._httpClient.post<any>(environment.api + '/client', {
+      numCompte: client.numCompte,
+      nomClient: client.nomClient
+    });
   }
 
   edit(client: Client): Observable<any> {
-    return this._httpClient.put<any>(environment.api + '/client/' + client.numCompte, client);
+    return this._httpClient.put<any>(environment.api + '/client/' + client.numCompte, {
+      numCompte: client.numCompte,
+      nomClient: client.nomClient
+    });
   }
 
   delete(id: string): Observable<any> {

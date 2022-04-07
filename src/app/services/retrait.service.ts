@@ -87,11 +87,22 @@ export class RetraitService implements OnDestroy {
   }
 
   add(retrait: Retrait): Observable<any> {
-    return this._httpClient.post<any>(environment.api + '/retrait', retrait);
+    return this._httpClient.post<any>(environment.api + '/retrait', {
+      numCheck: retrait.numCheck,
+      numCompte: retrait.client.numCompte,
+      montant: retrait.montant,
+      date: retrait.date
+    });
   }
 
   edit(retrait: Retrait): Observable<any> {
-    return this._httpClient.put<any>(environment.api + '/retrait/' + retrait.numRetrait, retrait);
+    return this._httpClient.put<any>(environment.api + '/retrait/' + retrait.numRetrait, {
+      numRetrait: retrait.numRetrait,
+      numCheck: retrait.numCheck,
+      numCompte: retrait.client.numCompte,
+      montant: retrait.montant,
+      date: retrait.date
+    });
   }
 
   delete(id: string): Observable<any> {

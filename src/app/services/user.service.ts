@@ -72,11 +72,23 @@ export class UserService implements OnDestroy {
   }
 
   add(user: User): Observable<any> {
-    return this._httpClient.post<any>(environment.api + '/user', user);
+    return this._httpClient.post<any>(environment.api + '/user', {
+      username: user.username,
+      name: user.name,
+      password: user.password,
+      type: user.type,
+      user_id: user.user_id
+    });
   }
 
   edit(user: User): Observable<any> {
-    return this._httpClient.put<any>(environment.api + '/user/' + user.username, user);
+    return this._httpClient.put<any>(environment.api + '/user/' + user.username, {
+      username: user.username,
+      name: user.name,
+      password: user.password,
+      type: user.type,
+      user_id: user.user_id
+    });
   }
 
   delete(username: string): Observable<any> {

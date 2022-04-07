@@ -7,7 +7,7 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
   <div *ngIf="action !== 'delete'">
     <div class="form_container">
-      <mat-form-field hideRequiredMarker>
+      <mat-form-field hideRequiredMarker *ngIf="action === 'add'">
         <mat-label>Username</mat-label>
         <input formControlName="username" type="text" matInput name="username" />
       </mat-form-field>
@@ -21,7 +21,6 @@
       </mat-form-field>
       <mat-form-field hideRequiredMarker>
         <mat-label>type</mat-label>
-        <input formControlName="type" type="text" matInput name="type" />
         <mat-select name="type" formControlName="type">
           <!-- [(ngModel)]="product_id_selected" -->
           <mat-option value="simple"> Simple </mat-option>

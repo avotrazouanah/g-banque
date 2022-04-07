@@ -62,7 +62,7 @@ export class ClientFormComponent implements OnInit, OnDestroy {
       case 'add':
         this.title = 'Add';
         this.nameBtn = 'Add';
-        this.classIcon = 'fa fa-client-plus';
+        this.classIcon = 'fa fa-plus';
         break;
       case 'edit':
         this.title = 'Edit';
@@ -96,7 +96,7 @@ export class ClientFormComponent implements OnInit, OnDestroy {
     if (this.action != 'delete') {
       this.client = new Client(
         this.clientForm.value['numCompte'],
-        this.clientForm.value['nomCompte']
+        this.clientForm.value['nomClient']
       );
     }
     switch (this.action) {
