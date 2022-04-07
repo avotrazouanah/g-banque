@@ -6,6 +6,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Menu } from 'src/app/pages/admin/common/sidebar/menu';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-admin',
@@ -16,6 +17,7 @@ export class AdminComponent implements OnInit {
   @ViewChild('drawer') public _drawer!: MatDrawer;
   _title = 'Web Administration';
   _isMobile: boolean = false;
+  _connectedUser!: User;
 
   constructor(
     private breakpoint: BreakpointObserver,
@@ -25,6 +27,10 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.onChangeTitle();
+    this.authService.connectedUserSubject.subscribe({
+      next: (connectedUser) => (this._connectedUser = connectedUser)
+    });
+    this.authService.emitConnectedUserSubject();
   }
 
   ngAfterViewInit() {

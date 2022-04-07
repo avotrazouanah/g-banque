@@ -32,7 +32,7 @@ export class AuthAdminGuard implements CanActivate {
       if (this.connectedUser?.type === 'Admin') {
         resolve(true);
       } else {
-        this.router.navigate(['client']);
+        this.router.navigate(['/admin/client']);
         resolve(false);
       }
     });

@@ -24,6 +24,7 @@ export class SidebarComponent implements OnInit {
     this.authService.emitConnectedUserSubject();
   }
   isAdmin(_type: string) {
-    return this._connectedUser.type === 'Admin' && _type === 'Admin';
+    // return this._connectedUser.type === 'Admin' && _type === 'Admin';
+    return this._connectedUser.type === 'Admin' ? true : _type === 'Simple';
   }
 }

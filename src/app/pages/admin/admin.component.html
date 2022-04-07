@@ -15,7 +15,7 @@
           <a class="navbar-brand" href="javascript:void(0)">{{ _title }}</a>
 
           <div [ngClass]="{ mobile: _isMobile, pc: !_isMobile }" style="position: absolute">
-            <a class="navbar-brand" href="javascript:void(0)">{{ 'username' }}</a>
+            <a class="navbar-brand" href="javascript:void(0)">{{ _connectedUser.username }}</a>
             <a class="navbar-brand logout" (click)="onLogout()"><i class="fa fa-sign-out"></i></a>
           </div>
         </div>

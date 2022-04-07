@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { User } from '../models/user';
 import { environment } from 'src/environments/environment';
-import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +12,16 @@ export class AuthService {
   private connectedUser: User = new User();
   authSubject = new Subject<boolean>();
   connectedUserSubject = new Subject<User>();
-  tokenName: string = 'token';
+  userStorageName: string = 'user';
   // eslint-disable-next-line no-undef
   _localStorage = localStorage;
 
   // eslint-disable-next-line no-unused-vars
   constructor(private httpClient: HttpClient) {
-    const tokenStorage = this._localStorage.getItem(this.tokenName);
-    if (tokenStorage) {
+    const userStorage = this._localStorage.getItem(this.userStorageName);
+    if (userStorage) {
       this.isAuth = true;
-      // this.setConnectedUser(jwt_decode(tokenStorage));
-      // console.log(this.connectedUser);
+      this.setConnectedUser(JSON.parse(userStorage));
     }
   }
 
@@ -40,16 +38,16 @@ export class AuthService {
     this.emitConnectedUserSubject();
   }
 
-  saveToken(token: string) {
+  saveUserStorage(user_str: string) {
     this.isAuth = true;
-    this._localStorage.setItem(this.tokenName, token);
+    this._localStorage.setItem(this.userStorageName, user_str);
     this.emitAuthSubject();
-    this.setConnectedUser(jwt_decode(token));
+    this.setConnectedUser(JSON.parse(user_str));
   }
 
   logOut() {
     this.isAuth = false;
-    this._localStorage.removeItem(this.tokenName);
+    this._localStorage.removeItem(this.userStorageName);
     this.emitAuthSubject();
     this.setConnectedUser(new User());
   }

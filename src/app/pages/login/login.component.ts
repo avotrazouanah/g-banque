@@ -64,11 +64,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   handleResult(res: any) {
     this.loading = false;
-    // if (res.success) {
-    this.authService.saveToken(res.token);
-    this.router.navigate(['/admin/client']);
-    this.notificationService.alert({ _content: 'Your are connected' });
-    // }
+    if (res.success) {
+      this.authService.saveUserStorage(JSON.stringify(res.user));
+      this.router.navigate(['/admin/client']);
+      this.notificationService.alert({ _content: 'Your are connected' });
+    }
   }
 
   handleError(error: any) {
