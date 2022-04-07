@@ -20,12 +20,12 @@ import { MatTableModule } from '@angular/material/table';
 import { NgModule } from '@angular/core';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { RetraitComponent } from './pages/retrait/retrait.component';
+import { RetraitFormComponent } from './pages/retrait/retrait-form/retrait-form.component';
 import { SidebarComponent } from 'src/app/pages/admin/common/sidebar/sidebar.component';
 import { UserComponent } from './pages/user/user.component';
+import { UserFormComponent } from './pages/user/user-form/user-form.component';
 import { VersementComponent } from './pages/versement/versement.component';
 import { VersementFormComponent } from './pages/versement/versement-form/versement-form.component';
-import { RetraitFormComponent } from './pages/retrait/retrait-form/retrait-form.component';
-import { UserFormComponent } from './pages/user/user-form/user-form.component';
 
 @NgModule({
   declarations: [
