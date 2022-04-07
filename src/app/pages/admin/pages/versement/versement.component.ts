@@ -69,7 +69,7 @@ export class VersementComponent implements OnInit, OnDestroy {
 
   checkRowValue(row: Versement, search: string) {
     return (
-      row.numVersement.toUpperCase().indexOf(search) >= 0 ||
+      row.numVersement.toString().toUpperCase().indexOf(search) >= 0 ||
       row.numCheck.toUpperCase().indexOf(search) >= 0 ||
       row.dateStr.toUpperCase().indexOf(search) >= 0 ||
       row.client.numCompte.toString().toUpperCase().indexOf(search) >= 0 ||

@@ -69,7 +69,7 @@ export class RetraitComponent implements OnInit, OnDestroy {
 
   checkRowValue(row: Retrait, search: string) {
     return (
-      row.numRetrait.toUpperCase().indexOf(search) >= 0 ||
+      row.numRetrait.toString().toUpperCase().indexOf(search) >= 0 ||
       row.numCheck.toUpperCase().indexOf(search) >= 0 ||
       row.dateStr.toUpperCase().indexOf(search) >= 0 ||
       row.client.numCompte.toString().toUpperCase().indexOf(search) >= 0 ||
