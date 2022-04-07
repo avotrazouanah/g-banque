@@ -6,19 +6,18 @@
       </div>
     </div>
 
-    <!-- <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"> -->
-    <form>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="col-sm-11 col-md-11 col-lg-7" style="margin: auto">
         <div class="container">
           <label for="uname">
-            <b>Email</b>
+            <b>Username</b>
           </label>
           <input
             type="text"
             matInput
-            placeholder="Enter email"
-            formControlName="email"
-            name="uname"
+            placeholder="Username"
+            formControlName="username"
+            name="username"
             required
           />
 
@@ -33,20 +32,21 @@
             formControlName="password"
             required
           />
-          <!-- <div *ngIf="msg_error" class="msg_error">
+          <div *ngIf="msg_error" class="msg_error">
             {{ msg_error }}
-          </div> -->
-          <!-- <button type="submit" style="margin-right: 10px" onclick="onLog()"> -->
-          <!-- [disabled]="loginForm.invalid || loading" -->
-          <button type="button" style="margin-right: 10px" (click)="onLog()">
-            <i class="fa fa-user" style="margin-right: 5px"></i>
-            <!-- *ngIf="!loading" -->
+          </div>
+          <button
+            type="submit"
+            style="margin-right: 10px"
+            [disabled]="loginForm.invalid || loading"
+          >
+            <i class="fa fa-user" style="margin-right: 5px" *ngIf="!loading"></i>
             <img
               src="../../../assets/img/loading.gif"
               alt="loading_gif"
               style="width: 16px; height: 16px"
+              *ngIf="loading"
             />
-            <!-- *ngIf="loading" -->
             Login
           </button>
         </div>

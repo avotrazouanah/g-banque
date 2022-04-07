@@ -3,4 +3,5 @@ export interface RouteInfo {
   _title: string;
   _icon: string;
   _class: string;
+  _type: string;
 }

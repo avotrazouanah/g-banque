@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 import { Component, OnInit, ViewChild } from '@angular/core';
 
+import { AuthService } from 'src/app/services/auth.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Menu } from 'src/app/pages/admin/common/sidebar/menu';
@@ -15,8 +17,11 @@ export class AdminComponent implements OnInit {
   _title = 'Web Administration';
   _isMobile: boolean = false;
 
-  // eslint-disable-next-line no-unused-vars
-  constructor(private breakpoint: BreakpointObserver, private router: Router) {}
+  constructor(
+    private breakpoint: BreakpointObserver,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.onChangeTitle();
@@ -42,7 +47,9 @@ export class AdminComponent implements OnInit {
       for (let c of Menu) if (c._path === this._title) this._title = c._title;
     } else this._title = 'Web Administration';
   }
-  onLogOut() {
+
+  onLogout() {
     this.router.navigate(['/', 'login']);
+    this.authService.logOut();
   }
 }

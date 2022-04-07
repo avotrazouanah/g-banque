@@ -4,7 +4,7 @@
   </div>
   <ul class="nav">
     <li *ngFor="let menuItem of _menu" routerLinkActive="active" class="{{ menuItem._class }}">
-      <a [routerLink]="[menuItem._path]">
+      <a [routerLink]="[menuItem._path]" *ngIf="isAdmin(menuItem._type)">
         <i class="fa {{ menuItem._icon }}"></i>
         <p>{{ menuItem._title }}</p>
       </a>

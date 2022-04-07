@@ -1,13 +1,16 @@
 import { RouterModule, Routes } from '@angular/router';
 
+import { AuthGuard } from './guard/auth.guard';
+import { LogGuard } from './guard/log.guard';
 import { LoginComponent } from './pages/login/login.component';
 import { NgModule } from '@angular/core';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  { path: 'login', canActivate: [LogGuard], component: LoginComponent },
   {
     path: 'admin',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./pages/admin/admin.module').then((m) => m.AdminModule)
   },
   { path: 'not-found', component: NotFoundComponent },

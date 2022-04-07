@@ -28,10 +28,12 @@ export class AuditOperationService {
 
   getListOperation(date1: string = '', date2: string = '') {
     this.operationSubcription = this.httpClient
-      .post<any[]>(environment.api + '/audit-operation', { firstDate: date1, secondDate: date2 })
+      .post<any[]>(environment.api + '/audit_operation', { firstDate: date1, secondDate: date2 })
       .subscribe({
         next: (row) => {
           this.operationList = [];
+          // eslint-disable-next-line no-undef
+          console.log(row);
           row.forEach((item) => {
             this.operationList.push(
               new AuditOperation(

@@ -5,6 +5,7 @@ import { AuditCompteComponent } from './pages/audit-compte/audit-compte.componen
 import { AuditOperationComponent } from './pages/audit-operation/audit-operation.component';
 import { AuditRetraitComponent } from './pages/audit-retrait/audit-retrait.component';
 import { AuditVersementComponent } from './pages/audit-versement/audit-versement.component';
+import { AuthGuard } from 'src/app/guard/auth.guard';
 import { ClientComponent } from './pages/client/client.component';
 import { NgModule } from '@angular/core';
 import { RetraitComponent } from './pages/retrait/retrait.component';
@@ -19,11 +20,11 @@ const routes: Routes = [
       { path: 'client', component: ClientComponent },
       { path: 'versement', component: VersementComponent },
       { path: 'retrait', component: RetraitComponent },
-      { path: 'audit-operation', component: AuditOperationComponent },
-      { path: 'audit-versement', component: AuditVersementComponent },
-      { path: 'audit-retrait', component: AuditRetraitComponent },
-      { path: 'audit-compte', component: AuditCompteComponent },
-      { path: 'user', component: UserComponent },
+      { path: 'audit-operation', canActivate: [AuthGuard], component: AuditOperationComponent },
+      { path: 'audit-versement', canActivate: [AuthGuard], component: AuditVersementComponent },
+      { path: 'audit-retrait', canActivate: [AuthGuard], component: AuditRetraitComponent },
+      { path: 'audit-compte', canActivate: [AuthGuard], component: AuditCompteComponent },
+      { path: 'user', canActivate: [AuthGuard], component: UserComponent },
       { path: '', redirectTo: 'client', pathMatch: 'full' }
     ]
   }
