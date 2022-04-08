@@ -100,7 +100,7 @@ export class RetraitFormComponent implements OnInit, OnDestroy {
         [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(1)]
       ],
       montant: [
-        retrait.client.numCompte,
+        retrait.montant,
         [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(1)]
       ],
       date: [retrait.date, [Validators.required]]
@@ -172,6 +172,7 @@ export class RetraitFormComponent implements OnInit, OnDestroy {
 
   handleError(error: any) {
     this.loading = false;
+    // console.log(error);
     if (error.status == 409) {
       this.msg_error = error.error.message;
     } else {

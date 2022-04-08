@@ -17,10 +17,10 @@
   ></i>
   <mat-form-field style="margin: 0px 10px; width: 24%" appearance="legacy" floatLabel="auto">
     <mat-label>Operation</mat-label>
-    <mat-select [(ngModel)]="_operation">
+    <mat-select [(ngModel)]="_operation" (selectionChange)="onApplyFilterTypes()">
       <mat-option value=""></mat-option>
-      <mat-option value="versement">versement</mat-option>
-      <mat-option value="retrait">retrait</mat-option>
+      <mat-option value="MODIFICATION">Modification</mat-option>
+      <mat-option value="SUPPRESSION">Suppression</mat-option>
     </mat-select>
   </mat-form-field>
 </div>

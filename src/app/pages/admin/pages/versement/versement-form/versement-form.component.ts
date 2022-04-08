@@ -100,7 +100,7 @@ export class VersementFormComponent implements OnInit, OnDestroy {
         [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(1)]
       ],
       montant: [
-        versement.client.numCompte,
+        versement.montant,
         [Validators.required, Validators.pattern('^[0-9]*$'), Validators.min(1)]
       ],
       date: [versement.date, [Validators.required]]
